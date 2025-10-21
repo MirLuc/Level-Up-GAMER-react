@@ -1,5 +1,7 @@
 import React from 'react';
-import '../styles/CommonStyles.css'; // Importamos el archivo CSS común
+import '../../styles/Styles.css';
+import LoginScreen from '../login/LoginScreen.js'; 
+import RegistroScreen from '../registro/RegistroScreen.js';
 
 const ProductsScreen = () => {
     
@@ -10,17 +12,19 @@ const ProductsScreen = () => {
             {/* Header - Ahora más complejo con 3 botones de navegación */}
             <div className="app-header">
                 <div className="app-logo">
-                    <span role="img" aria-label="Game Controller">🎮🎮</span>
-                    LEVEL_UP_GAMER
+                    <span role="img" aria-label="Game Controller">🎮</span>
+                    LEVEL-UP GAMER
                 </div>
+
+
 
                 <div className="nav-buttons">
                     {/* Botón Login */}
-                    <a href="/login" className="primary-button" style={{padding: '8px 15px', fontSize: '1rem'}}>
+                    <a href={<LoginScreen />} className="primary-button" style={{padding: '8px 15px', fontSize: '1rem'}}>
                         Login
                     </a>
                     {/* Botón Registro */}
-                    <a href="/register" className="primary-button" style={{padding: '8px 15px', fontSize: '1rem'}}>
+                    <a href="../../registro/RegistroScreen" className="primary-button" style={{padding: '8px 15px', fontSize: '1rem'}}>
                         Registro
                     </a>
                     {/* Botón Gestión Perfiles (Volver usa el estilo secundario azul) */}
