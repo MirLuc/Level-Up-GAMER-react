@@ -1,0 +1,117 @@
+/* ==================================== */
+/* 1. Estilos Base y Cuerpo (BODY)      */
+/* ==================================== */
+.app-body {
+    background-color: #000;
+    min-height: 100vh;
+    color: #fff;
+    padding-top: 20px;
+    font-family: Arial, sans-serif; /* Puedes ajustar la fuente */
+}
+
+/* Contenedor principal de la tarjeta (usado para Login, Registro, y ahora Filtros) */
+.main-card {
+    background-color: #222;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    max-width: 700px; /* Aumentamos el ancho para esta pantalla */
+    margin: 50px auto 0 auto;
+    padding: 24px;
+}
+
+/* ==================================== */
+/* 2. Estilos del Encabezado (HEADER)   */
+/* ==================================== */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+/* Estilos para el Logo */
+.app-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #9370DB; /* Morado */
+    display: flex;
+    align-items: center;
+}
+
+.app-logo span {
+    margin-right: 10px;
+    font-size: 2rem;
+    color: #9370DB;
+}
+
+/* ==================================== */
+/* 3. Estilos de Inputs y Botones       */
+/* ==================================== */
+
+/* Estilos para los campos de input y select */
+.dark-input {
+    background-color: #333;
+    color: #f7f7f7;
+    border: 1px solid #444;
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 5px;
+}
+
+.dark-input:focus {
+    background-color: #333;
+    color: #fff;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+/* Estilo Base del Botón Principal (Azul degradado) */
+.primary-button {
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    border: none;
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: opacity 0.3s;
+}
+
+.primary-button:hover {
+    opacity: 0.9;
+}
+
+/* Estilo del Botón Secundario (Gris o Volver) */
+.secondary-button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #333; /* Gris oscuro para el de 'Limpiar filtros' */
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.secondary-button.back {
+    /* Estilo del botón "Volver" */
+    background-color: #1E90FF;
+    padding: 8px 15px;
+    font-size: 1rem;
+}
+
+.secondary-button:hover {
+    background-color: #444;
+}
+
+/* Contenedor para botones de navegación */
+.nav-buttons {
+    display: flex;
+    gap: 10px; /* Espacio entre los botones de navegación */
+}

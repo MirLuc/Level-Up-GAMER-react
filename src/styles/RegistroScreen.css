@@ -1,0 +1,93 @@
+/* Estilos para el contenedor principal (simula el body) */
+.register-body {
+    background-color: #000;
+    min-height: 100vh;
+    color: #fff;
+    padding-top: 20px;
+}
+
+/* Estilos para el contenedor de la tarjeta de registro */
+.register-card {
+    background-color: #222;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+    max-width: 400px; /* Mismo ancho que la tarjeta de login */
+    margin: 50px auto 0 auto;
+    padding: 24px;
+}
+
+/* Estilos para los campos de input (reutilizados) */
+.register-input {
+    /* Mantienen el mismo estilo dark-mode de los inputs de login */
+    background-color: #333;
+    color: #f7f7f7;
+    border: 1px solid #444;
+    padding: 12px 15px;
+    font-size: 1.1rem;
+    width: 100%; /* Aseguramos que ocupe todo el ancho del contenedor */
+    box-sizing: border-box; /* Incluye padding y borde en el ancho total */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+}
+/* Asegúrate de que el focus también sea discreto */
+.register-input:focus {
+    background-color: #333;
+    color: #fff;
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.25);
+    outline: none; /* Eliminar el contorno por defecto */
+}
+
+/* Estilos para las etiquetas de texto (Textos 1, 2, 3, 4) */
+.register-label {
+    display: block; /* Para que ocupen su propia línea */
+    margin-bottom: 8px; /* Espacio entre la etiqueta y el input */
+    font-size: 1rem;
+    font-weight: 500;
+    color: #fff;
+}
+
+
+/* Estilos para el botón de Registrar (reutilizamos el gradiente del botón de Login) */
+.register-button {
+    background: linear-gradient(to right, #007bff, #00c6ff);
+    border: none;
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 100%; /* Ocupar todo el ancho */
+    border-radius: 5px; /* Bordes ligeramente redondeados */
+    color: #fff;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.register-button:hover {
+    opacity: 0.9;
+}
+
+/* Estilos del encabezado (reutilizados del login) */
+.register-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    margin-bottom: 40px; /* Separación del encabezado a la tarjeta */
+}
+
+/* Estilos para el logo (reutilizados del login) */
+.register-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #9370DB; /* Morado (Se ve ligeramente diferente en la imagen, pero mantendremos el tono del login para consistencia) */
+    display: flex;
+    align-items: center;
+}
+
+/* Estilo del botón de "Volver" (reutilizados del login) */
+.back-button {
+    text-decoration: none;
+    color: #fff;
+    background-color: #1E90FF;
+    padding: 8px 15px;
+    border-radius: 5px;
+}
