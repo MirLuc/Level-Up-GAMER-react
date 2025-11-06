@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styles/Styles.css';
+import '../../styles/Styles.css'; // <-- RUTA CORREGIDA: Sube a 'components', luego sube a 'src', entra a 'styles'
 
 // Aceptamos la prop 'onBack'
 const RegistroScreen = ({ onBack }) => {
@@ -13,7 +13,7 @@ const RegistroScreen = ({ onBack }) => {
           <span role="img" aria-label="Game Controller" style={{marginRight: '10px', fontSize: '2rem'}}> 🎮 </span>
           LEVEL_UP_GAMER
         </div>
-        {/* Botón Volver - Usa onClick para llamar a la función onBack */}
+        {/* Botón Volver */}
         <a 
           onClick={onBack} 
           className="back-button" 

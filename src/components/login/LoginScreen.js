@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import '../../styles/Styles.css';
-// Aceptamos la prop 'onBack'
+import '../../styles/Styles.css'; // <-- RUTA CORREGIDA: Sube a 'components', luego sube a 'src', entra a 'styles'
+
+// Aceptamos la prop 'onBack' que contendrá la función para volver
 const LoginScreen = ({ onBack }) => {
 
   return (
-
     <div className="login-body">
 
       {/* Header */}
