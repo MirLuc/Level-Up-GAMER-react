@@ -1,54 +1,123 @@
 import React, { useState } from 'react';
 import '../../styles/Styles.css'; 
 
+// Función auxiliar para validar un email básico
+const validateEmail = (email) => {
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+};
+
 const LoginScreen = ({ onBack }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errors, setErrors] = useState({}); 
     
+    // Función de validación de formato
+    const validate = () => {
+        let tempErrors = {};
+        let isValid = true;
+
+        if (!email) {
+            tempErrors.email = 'El email es obligatorio.';
+            isValid = false;
+        } else if (!validateEmail(email)) {
+            tempErrors.email = 'Formato de email incorrecto.';
+            isValid = false;
+        }
+
+        if (!password) {
+            tempErrors.password = 'La contraseña es obligatoria.';
+            isValid = false;
+        }
+
+        setErrors(tempErrors); 
+        return isValid; 
+    };
+
+    // Lógica principal de INICIO DE SESIÓN
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Intento de Login con:', { email, password });
-        alert('Intentando Iniciar Sesión...');
+        setErrors({}); // Limpia errores previos al inicio de la validación
+        
+        if (validate()) {
+            // Carga la lista de usuarios desde localStorage
+            const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Busca al usuario por email y contraseña
+            const user = existingUsers.find(
+                u => u.email.toLowerCase() === email.toLowerCase() && u.password === password
+            );
+            
+            if (user) {
+                // CLAVE PARA GESTIÓN DE PERFILES: Guardar el email del usuario activo
+                localStorage.setItem('activeUserEmail', user.email); 
+                
+                // ÉXITO: Iniciar Sesión y comprobar descuento
+                if (user.email.toLowerCase().endsWith('@duocuc.cl')) {
+                    alert(`¡Bienvenido ${user.name}! Tienes un 20% de descuento aplicado.`);
+                } else {
+                    alert(`¡Bienvenido ${user.name}!`);
+                }
+
+                // Redirige al Home/Productos
+                onBack(); 
+            } else {
+                // FALLO: Credenciales incorrectas
+                setErrors({ general: 'Email o contraseña incorrectos. Intenta de nuevo.' });
+            }
+        }
     };
 
     return (
         <div className="login-body">
+            {/* Header */}
             <div className="login-header">
                 <div className="login-logo">
                     <span role="img" aria-label="Game Controller"> 🎮 </span>
-                    LEVEL_UP_GAMER
+                    LEVEL-UP-GAMER
                 </div>
-                {/* Botón Volver con estilo primario compacto */}
                 <a onClick={onBack} className="primary-button nav-btn">
                     ← Volver
                 </a>
             </div>
             
-            <div className="main-card"> 
+            {/* Tarjeta de Login */}
+            <div className="main-card" style={{maxWidth: '450px'}}> 
                 <h2 className="mb-4 text-center" style={{color: '#fff'}}>Login</h2>
+                
+                {/* Error General de Credenciales */}
+                {errors.general && <p className="error-text text-center" style={{marginBottom: '15px'}}>{errors.general}</p>}
+
                 <form onSubmit={handleSubmit}>
+                    
+                    {/* Campo 1: Email */}
                     <div className="mb-4">
                         <label className="input-label">Email</label>
                         <input 
                             type="email" 
-                            className="dark-input" 
+                            // Uso de la clase condicional para el error visual
+                            className={`dark-input ${errors.email ? 'input-error' : ''}`} 
                             placeholder="tucorreo@ejemplo.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            required
                         />
+                        {errors.email && <p className="error-text">{errors.email}</p>}
                     </div>
+
+                    {/* Campo 2: Contraseña */}
                     <div className="mb-4">
                         <label className="input-label">Contraseña</label>
                         <input 
                             type="password" 
-                            className="dark-input" 
+                            // Uso de la clase condicional para el error visual
+                            className={`dark-input ${errors.password ? 'input-error' : ''}`}
                             placeholder="Ingresa tu contraseña"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            required
                         />
+                        {errors.password && <p className="error-text">{errors.password}</p>}
                     </div>
+
                     <div className="text-center mt-4">
                         <button type="submit" className="primary-button">
                             Iniciar Sesión
