@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../../styles/Styles.css';
+import '../../styles/Styles.css'; 
 import LoginScreen from '../login/LoginScreen.js'; 
 import RegistroScreen from '../registro/RegistroScreen.js';
 import GestionDePerfiles from '../perfiles/GestionDePerfiles.js'; 
@@ -17,7 +17,6 @@ const ProductsScreen = () => {
     const [cartItems, setCartItems] = useState([]); 
     const [searchTerm, setSearchTerm] = useState(''); 
     const [filterCategory, setFilterCategory] = useState('Todas'); 
-    // Usamos el estado 'isLoggedIn' para forzar la re-renderización del header
     const [isLoggedIn, setIsLoggedIn] = useState(!!getActiveUserEmail());
     
     // Función para cambiar el estado y navegar
@@ -27,9 +26,7 @@ const ProductsScreen = () => {
     
     // Función de LOGIN/LOGOUT que actualiza el estado de la sesión
     const handleLogin = (screenName) => {
-        // Después de la navegación, actualiza el estado para reflejar la sesión
         setCurrentScreen(screenName);
-        // Usamos un pequeño timeout para dar tiempo a la función de login en LoginScreen.js
         setTimeout(() => {
              setIsLoggedIn(!!getActiveUserEmail());
         }, 100);
@@ -61,15 +58,15 @@ const ProductsScreen = () => {
         alert(`¡${productToAdd.name} añadido al carrito!`);
     };
     
-    // --- Datos de Productos de Ejemplo ---
+    // --- Datos de Productos de Ejemplo (RUTAS CORREGIDAS) ---
     const products = [
-        { id: 1, name: 'Consola Retro', price: 299.99, description: 'Una consola clásica con cientos de juegos.', emoji: ' 🕹️ ', category: 'Consolas' },
-        { id: 2, name: 'Silla Gamer RGB', price: 450.00, description: 'Máximo confort para largas sesiones de juego.', emoji: ' 💺 ', category: 'Accesorios' },
-        { id: 3, name: 'Teclado Mecánico', price: 120.50, description: 'Teclas rápidas y sensibles para eSports.', emoji: ' ⌨️ ', category: 'Accesorios' },
-        { id: 4, name: 'Mouse Inalámbrico', price: 55.99, description: 'Precisión y velocidad para el gamer competitivo.', emoji: ' 🖱️ ', category: 'Accesorios' },
-        { id: 5, name: 'Monitor Curvo 4K', price: 799.00, description: 'Inmersión total con la mejor resolución.', emoji: ' 🖥️ ', category: 'Monitores' },
-        { id: 6, name: 'Juego Nuevo AAA', price: 69.99, description: 'El lanzamiento más esperado del año.', emoji: ' 💿 ', category: 'Juegos' },
-        { id: 7, name: 'Auriculares Noise Cancelling', price: 150.00, description: 'Aísla el ruido y céntrate en la partida.', emoji: ' 🎧 ', category: 'Accesorios' },
+        { id: 1, name: 'Consola Retro', price: 299.99, description: 'Una consola clásica con cientos de juegos.', image: '/imagenes/Consolas.jpg', category: 'Consolas' },
+        { id: 2, name: 'Silla Gamer RGB', price: 450.00, description: 'Máximo confort para largas sesiones de juego.', image: '/imagenes/Silla-Gamer.jpg', category: 'Accesorios' },
+        { id: 3, name: 'Teclado Mecánico', price: 120.50, description: 'Teclas rápidas y sensibles para eSports.', image: '/imagenes/Teclado.jpg', category: 'Accesorios' },
+        { id: 4, name: 'Mouse Inalámbrico', price: 55.99, description: 'Precisión y velocidad para el gamer competitivo.', image: '/imagenes/Mause.jpg', category: 'Accesorios' },
+        { id: 5, name: 'Monitor Curvo 4K', price: 799.00, description: 'Inmersión total con la mejor resolución.', image: '/imagenes/Monitor.jpg', category: 'Monitores' },
+        { id: 6, name: 'Juego Nuevo AAA', price: 69.99, description: 'El lanzamiento más esperado del año.', image: '/imagenes/Juegos.jpg', category: 'Juegos' },
+        { id: 7, name: 'Auriculares Noise Cancelling', price: 150.00, description: 'Aísla el ruido y céntrate en la partida.', image: '/imagenes/Audifonos.jpg', category: 'Accesorios' },
     ];
     
     // LÓGICA DE FILTRADO Y BÚSQUEDA
@@ -87,7 +84,6 @@ const ProductsScreen = () => {
     // Lógica para renderizar la pantalla correcta
     const renderScreen = () => {
         switch (currentScreen) {
-            // Usar handleLogin en lugar de navigateTo para estas pantallas
             case 'login':
                 return <LoginScreen onBack={() => handleLogin('products')} />;
             case 'register':
@@ -110,7 +106,7 @@ const ProductsScreen = () => {
                         <div className="app-header">
                             <div className="app-logo">
                                 <span role="img" aria-label="Game Controller"> 🎮 </span>
-                                LEVEL-UP-GAMER
+                                LEVEL-UP GAMER
                             </div>
                             
                             {/* BOTONES DE NAVEGACIÓN (RENDERIZADO CONDICIONAL) */}

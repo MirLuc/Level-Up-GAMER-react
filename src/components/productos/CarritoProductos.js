@@ -1,28 +1,35 @@
 import React from 'react';
-import '../../styles/Styles.css';
+import '../../styles/Styles.css'; 
 
-// Ahora acepta la función `addToCart` como prop
-const CarritoProductos = ({ product, addToCart }) => (
-    <div className="product-card">
-        <div className="product-image" style={{ textAlign: 'center', marginBottom: '10px' }}>
-             <span role="img" aria-label="product-icon" style={{fontSize: '3rem', color: '#00c6ff'}}> {product.emoji} </span>
+const CarritoProductos = ({ product, addToCart }) => { 
+    return (
+        <div className="product-card"> 
+            
+            <div className="product-image-container">
+                <img 
+                    src={product.image} 
+                    alt={product.name} 
+                    className="product-image-style"
+                />
+            </div>
+            
+            <h3 className="product-name">{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            
+            {/* 3. PRECIO Y BOTÓN */}
+            <div className="product-footer">
+                <p className="product-price">${product.price.toFixed(2)}</p>
+                
+                {/* 💡 CORRECCIÓN CLAVE: Usamos 'primary-button' y añadimos el ícono */}
+                <button 
+                    className="primary-button add-to-cart-btn" 
+                    onClick={() => addToCart(product)}
+                >
+                    <span role="img" aria-label="Carrito" style={{marginRight: '5px'}}>🛒</span> Añadir
+                </button>
+            </div>
         </div>
-        <h3 style={{ color: '#fff', fontSize: '1.2rem', margin: '10px 0' }}>{product.name}</h3>
-        <p style={{ color: '#aaa', fontSize: '0.9rem', flexGrow: 1 }}>{product.description}</p>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '15px' }}>
-            <span style={{ color: '#00c6ff', fontSize: '1.5rem', fontWeight: 'bold' }}>
-                ${product.price.toFixed(2)}
-            </span>
-            {/* CLAVE: Cambiamos navigateToCarrito por addToCart y pasamos el producto */}
-            <button 
-                className="primary-button" 
-                onClick={() => addToCart(product)} 
-                style={{padding: '8px 15px', fontSize: '1rem'}}
-            >
-                🛒 Añadir
-            </button>
-        </div>
-    </div>
-);
+    );
+};
 
 export default CarritoProductos;

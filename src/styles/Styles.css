@@ -118,7 +118,7 @@
 }
 
 /* ==================================== */
-/* 4. Estilos de Productos (GRID y Tarjeta) */
+/* 4. Estilos de Productos (GRID, Tarjeta e Imágenes) */
 /* ==================================== */
 .products-container {
     max-width: 1200px;
@@ -151,14 +151,29 @@
     transform: translateY(-5px);
     box-shadow: 0 6px 12px rgba(0, 198, 255, 0.3);
 }
-.product-image {
+
+/* 💡 AJUSTE CLAVE PARA ADAPTAR IMAGENES */
+.product-image-container {
     text-align: center;
     margin-bottom: 10px;
+    height: 150px; /* **Altura Fija:** Limita el espacio de la imagen */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; 
 }
-.product-image span {
-    font-size: 3rem;
-    color: #00c6ff;
+.product-image-style {
+    max-height: 100%; 
+    max-width: 100%;  
+    object-fit: contain; /* **CLAVE:** Escala la imagen para que quepa sin cortarse (muestra la imagen completa) */
+    border-radius: 5px;
+    transition: transform 0.3s ease-in-out;
 }
+.product-card:hover .product-image-style {
+    transform: scale(1.05);
+}
+/* FIN DE AJUSTE DE IMAGENES */
+
 .product-name {
     color: #fff;
     font-size: 1.2rem;
@@ -223,8 +238,9 @@
     font-size: 1.2rem;
     color: #aaa;
 }
+
 /* ==================================== */
-/* 6. Estilos de Carrito (Final) */
+/* 6. Estilos de Carrito (Limpio) */
 /* ==================================== */
 .carrito-body {
     min-height: 100vh;
@@ -330,6 +346,8 @@
     width: 100%;
     margin-top: 20px;
 }
+
+
 /* ==================================== */
 /* 7. Estilos de Validación de Formularios */
 /* ==================================== */
