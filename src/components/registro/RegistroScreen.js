@@ -1,52 +1,86 @@
 import React, { useState } from 'react';
-import '../../styles/Styles.css'; // <-- RUTA CORREGIDA: Sube a 'components', luego sube a 'src', entra a 'styles'
+import '../../styles/Styles.css';
 
-// Aceptamos la prop 'onBack'
 const RegistroScreen = ({ onBack }) => {
 
-  return (
-    <div className="registro-body">
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        alert('Intentando Registrar Usuario...');
+    };
 
-      {/* Header */}
-      <div className="registro-header">
-        <div className="registro-logo">
-          <span role="img" aria-label="Game Controller" style={{marginRight: '10px', fontSize: '2rem'}}> 🎮 </span>
-          LEVEL_UP_GAMER
-        </div>
-        {/* Botón Volver */}
-        <a 
-          onClick={onBack} 
-          className="back-button" 
-          style={{cursor: 'pointer'}}
-        >
-          ← Volver
-        </a>
-      </div>
-      
-      {/* Tarjeta de Registro */}
-      <div className="registro-card">
-         <h2 className="mb-4 text-center">Registro de Usuario</h2>
-         
-         <form>
-            <div className="mb-3">
-                 <input type="text" className="form-control registro-input" placeholder="Nombre completo" />
-            </div>
-            <div className="mb-3">
-                 <input type="email" className="form-control registro-input" placeholder="Correo electrónico" />
-            </div>
-             <div className="mb-3">
-                 <input type="password" className="form-control registro-input" placeholder="Contraseña" />
+    return (
+        <div className="registro-body">
+            {/* Header */}
+            <div className="registro-header"> 
+                <div className="registro-logo">
+                    <span role="img" aria-label="Game Controller"> 🎮 </span>
+                    LEVEL_UP_GAMER
+                </div>
+                {/* Botón Volver con estilo primario compacto */}
+                <a 
+                    onClick={onBack} 
+                    className="primary-button nav-btn" 
+                >
+                    ← Volver
+                </a>
             </div>
             
-            {/* Botón de Registro */}
-            <div className="text-center mt-4">
-               <button type="submit" className="btn registro-button">
-                 Registrarse
-               </button>
+            {/* Tarjeta de Registro */}
+            <div className="main-card">
+                 <h2 className="mb-4 text-center" style={{color: '#fff'}}>Registro de Nuevo Usuario</h2>
+                 <form onSubmit={handleSubmit}>
+                    <div className="form-group-row">
+                        <div>
+                            <label className="input-label">Nombre</label>
+                            <input type="text" className="dark-input" placeholder="Tu nombre" required/>
+                        </div>
+                        <div>
+                            <label className="input-label">Apellido</label>
+                            <input type="text" className="dark-input" placeholder="Tu apellido" required/>
+                        </div>
+                    </div>
+                    <div className="form-group-row">
+                        <div>
+                            <label className="input-label">Email</label>
+                            <input type="email" className="dark-input" placeholder="tucorreo@ejemplo.com" required/>
+                        </div>
+                        <div>
+                            <label className="input-label">Contraseña</label>
+                            <input type="password" className="dark-input" placeholder="Mínimo 8 caracteres" required/>
+                        </div>
+                    </div>
+                    
+                    <div className="form-group-row">
+                        <div>
+                            <label className="input-label">Fecha Nacimiento</label>
+                            <input type="date" className="dark-input" placeholder="dd/mm/aaaa" />
+                        </div>
+                        <div>
+                            <label className="input-label">Género</label>
+                            <select className="dark-input">
+                                <option>Selecciona género</option>
+                                <option>Masculino</option>
+                                <option>Femenino</option>
+                                <option>Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style={{marginBottom: '20px'}}>
+                        <label className="input-label">Dirección</label>
+                        <input type="text" className="dark-input" placeholder="Ingresa tu dirección completa" />
+                    </div>
+
+                    {/* Botón de Submit */}
+                    <div className="text-center mt-4">
+                        <button type="submit" className="primary-button">
+                            Crear Cuenta
+                        </button>
+                    </div>
+                 </form>
             </div>
-         </form>
-      </div>
-    </div>
-  );
-}
+        </div>
+    );
+};
+
 export default RegistroScreen;

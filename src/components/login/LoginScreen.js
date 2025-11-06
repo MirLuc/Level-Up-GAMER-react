@@ -1,58 +1,63 @@
 import React, { useState } from 'react';
-import '../../styles/Styles.css'; // <-- RUTA CORREGIDA: Sube a 'components', luego sube a 'src', entra a 'styles'
+import '../../styles/Styles.css'; 
 
-// Aceptamos la prop 'onBack' que contendrá la función para volver
 const LoginScreen = ({ onBack }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('Intento de Login con:', { email, password });
+        alert('Intentando Iniciar Sesión...');
+    };
 
-  return (
-    <div className="login-body">
-
-      {/* Header */}
-      <div className="login-header">
-        <div className="login-logo">
-          <span role="img" aria-label="Game Controller" style={{marginRight: '10px', fontSize: '2rem'}}> 🎮 </span>
-          LEVEL_UP_GAMER
+    return (
+        <div className="login-body">
+            <div className="login-header">
+                <div className="login-logo">
+                    <span role="img" aria-label="Game Controller"> 🎮 </span>
+                    LEVEL_UP_GAMER
+                </div>
+                {/* Botón Volver con estilo primario compacto */}
+                <a onClick={onBack} className="primary-button nav-btn">
+                    ← Volver
+                </a>
+            </div>
+            
+            <div className="main-card"> 
+                <h2 className="mb-4 text-center" style={{color: '#fff'}}>Login</h2>
+                <form onSubmit={handleSubmit}>
+                    <div className="mb-4">
+                        <label className="input-label">Email</label>
+                        <input 
+                            type="email" 
+                            className="dark-input" 
+                            placeholder="tucorreo@ejemplo.com"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="mb-4">
+                        <label className="input-label">Contraseña</label>
+                        <input 
+                            type="password" 
+                            className="dark-input" 
+                            placeholder="Ingresa tu contraseña"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className="text-center mt-4">
+                        <button type="submit" className="primary-button">
+                            Iniciar Sesión
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
-        {/* Botón Volver - Usa onClick para llamar a la función onBack */}
-        <a onClick={onBack} className="back-button" style={{cursor: 'pointer'}}>
-          ← Volver
-        </a>
-      </div>
-      <div className="login-card">
+    );
+};
 
-        <h2 className="mb-4 text-center">Login</h2>
-
-        <form onSubmit={/ ... /}>
-          {/* Campo 1 */}
-          <div className="mb-4">
-            <input
-              type="text"
-              className="form-control login-input"
-              placeholder="name@duocuc.cl"
-              /* ... */
-            />
-          </div>
-          {/* Campo 2 */}
-          <div className="mb-5">
-            <input
-              type="password"
-              className="form-control login-input"
-              placeholder="Contraseña"
-              /* ... */
-            />
-          </div>
-          {/* Botón de Ingreso */}
-          <div className="text-center mt-4">
-            <button
-              type="submit"
-              className="btn login-button"
-            >
-              Ingresar
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  );
-}
 export default LoginScreen;
