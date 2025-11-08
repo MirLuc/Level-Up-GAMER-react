@@ -1,7 +1,7 @@
 import { describe, it, expect } from '@jest/globals';
 
 describe('placeholder', () => {
-  it('should pass', () => {
+  it('prueba de test', () => {
     expect(true).toBe(true);
   });
 });
