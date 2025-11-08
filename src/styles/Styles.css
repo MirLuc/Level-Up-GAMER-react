@@ -1,6 +1,4 @@
-/* ==================================== */
-/* 1. Estilos Base y Cuerpo (BODY)      */
-/* ==================================== */
+/*Estilos Base y Cuerpo */
 .app-body {
     background-color: #000;
     min-height: 100vh;
@@ -8,14 +6,14 @@
     padding-top: 20px;
     font-family: Arial, sans-serif;
 }
-/* Estilos para pantallas específicas (Login, Registro, Perfiles) */
+/* Estilos para Login, Registro, Perfiles*/
 .login-body, .registro-body, .perfiles-body {
     background-color: #000;
     min-height: 100vh;
     color: #fff;
     font-family: Arial, sans-serif;
 }
-/* Contenedor principal de la tarjeta (Login, Registro, Filtros, Carrito) */
+/* Contenedor  de la tarjeta (Login, Registro, Filtros, Carrito) */
 .main-card {
     background-color: #222;
     border-radius: 10px;
@@ -24,15 +22,13 @@
     margin: 50px auto 0 auto;
     padding: 24px;
 }
-/* Clase específica para la tarjeta de Filtros/Búsqueda (Layout y tamaño) */
+/* tarjeta de Filtros/Búsqueda (Layout y tamaño) */
 .filters-container {
     margin: 30px auto;
     max-width: 1200px;
 }
 
-/* ==================================== */
 /* 2. Estilos del Encabezado (HEADER)   */
-/* ==================================== */
 .app-header, .login-header, .registro-header {
     display: flex;
     justify-content: space-between;
@@ -53,9 +49,8 @@
     font-size: 2rem;
 }
 
-/* ==================================== */
 /* 3. Estilos de Formularios y Botones   */
-/* ==================================== */
+
 /* Estilos para los campos de input y select */
 .dark-input {
     background-color: #333;
@@ -88,7 +83,7 @@
     margin-bottom: 20px;
 }
 
-/* ÚNICO ESTILO DE BOTÓN: Botón Principal (Degradado Azul) */
+/* Boton Degradado Azul */
 .primary-button {
     background: linear-gradient(to right, #007bff, #00c6ff);
     border: none;
@@ -111,15 +106,12 @@
     display: flex;
     gap: 15px;
 }
-/* Estilo para hacerlo compacto (usado por todos los botones de navegación y "Volver") */
 .nav-btn {
     padding: 8px 15px !important;
     font-size: 1rem !important;
 }
 
-/* ==================================== */
-/* 4. Estilos de Productos (GRID, Tarjeta e Imágenes) */
-/* ==================================== */
+/* 4. Estilos de Productos  Tarjeta e Imágenes */
 .products-container {
     max-width: 1200px;
     margin: 40px auto;
@@ -152,7 +144,7 @@
     box-shadow: 0 6px 12px rgba(0, 198, 255, 0.3);
 }
 
-/* 💡 AJUSTE CLAVE PARA ADAPTAR IMAGENES */
+/* 💡 AJUSTE  IMAGENES */
 .product-image-container {
     text-align: center;
     margin-bottom: 10px;
@@ -172,7 +164,6 @@
 .product-card:hover .product-image-style {
     transform: scale(1.05);
 }
-/* FIN DE AJUSTE DE IMAGENES */
 
 .product-name {
     color: #fff;
@@ -196,9 +187,8 @@
     font-weight: bold;
 }
 
-/* ==================================== */
 /* 5. Estilos de Filtros y Búsqueda */
-/* ==================================== */
+
 /* Contenedor Flex para la fila de inputs de filtro */
 .filter-row {
     display: flex;
@@ -239,20 +229,18 @@
     color: #aaa;
 }
 
-/* ==================================== */
-/* 6. Estilos de Carrito (Limpio) */
-/* ==================================== */
+/* 6. Estilos de Carrito  */
 .carrito-body {
     min-height: 100vh;
     background-color: #000;
 }
-/* Contenedor principal del carrito, divide lista de productos y resumen */
+/* Contenedor principal del carrito */
 .cart-main-layout {
     display: grid;
     grid-template-columns: 2fr 1fr; /* 2/3 para productos, 1/3 para resumen */
     gap: 30px;
 }
-/* Encabezado (header) de la tabla de productos */
+/* Encabezado  de la tabla de productos */
 .cart-header-grid {
     display: grid;
     grid-template-columns: 3fr 1fr 1fr 1fr 0.5fr; /* Columnas de la tabla */
@@ -348,9 +336,7 @@
 }
 
 
-/* ==================================== */
 /* 7. Estilos de Validación de Formularios */
-/* ==================================== */
 .error-text {
     color: #dc3545; /* Rojo para errores */
     font-size: 0.9rem;
@@ -358,17 +344,15 @@
     margin-bottom: 0;
     font-weight: bold;
 }
-/* Clase para aplicar un borde rojo al input cuando hay un error de validación */
+/*  borde rojo al input error */
 .input-error {
     border-color: #dc3545 !important; /* Rojo */
     box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
 }
 
-/* ==================================== */
 /* 8. Estilos para el Mensaje de Descuento */
-/* ==================================== */
 .alert-duoc-discount {
-    background-color: #00c6ff; /* Color de DuocUC/promoción */
+    background-color: #00c6ff; 
     color: #000;
     font-weight: bold;
     padding: 15px;

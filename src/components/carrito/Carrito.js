@@ -13,14 +13,14 @@ const calculateCartTotals = (items) => {
 
 const Carrito = ({ onBack, cartItems, setCartItems }) => {
     
-    // Función para manejar el cambio de cantidad (aumentar/disminuir)
+    // Función para manejar el cambio de cantidad 
     const handleQtyChange = (itemId, change) => {
         setCartItems(
             cartItems
                 .map(item => 
                     item.id === itemId ? { ...item, qty: Math.max(0, item.qty + change) } : item
                 )
-                .filter(item => item.qty > 0) // Elimina si la cantidad baja a 0
+                .filter(item => item.qty > 0) 
         );
     };
 
@@ -29,11 +29,11 @@ const Carrito = ({ onBack, cartItems, setCartItems }) => {
         setCartItems(cartItems.filter(item => item.id !== itemId));
     };
 
-    // Lógica para simular el Checkout (vaciar el carrito)
+    // Lógica para vaciar el carrito al comprar 
     const handleCheckout = () => {
         alert('¡Compra finalizada con éxito! Gracias por tu pedido.');
-        setCartItems([]); // Vacía el carrito
-        onBack(); // Redirige a la pantalla de productos
+        setCartItems([]); 
+        onBack(); 
     };
 
     // Si el carrito está vacío
@@ -49,7 +49,6 @@ const Carrito = ({ onBack, cartItems, setCartItems }) => {
                         ← Volver a Productos
                     </a>
                 </div>
-                {/* Nota: Dejamos el maxWidth aquí por ser un estilo de layout específico del main-card en esta vista */}
                 <div className="main-card" style={{maxWidth: '600px', margin: '50px auto'}}>
                     <h2 className="text-center" style={{color: '#fff', marginBottom: '30px'}}>Tu Carrito de Compras</h2>
                     <div className="text-center" style={{padding: '50px 0'}}>
@@ -79,14 +78,12 @@ const Carrito = ({ onBack, cartItems, setCartItems }) => {
             </div>
             
             {/* Contenido Principal */}
-            {/* Nota: Dejamos el maxWidth aquí por ser un estilo de layout específico del main-card en esta vista */}
             <div className="main-card" style={{maxWidth: '1000px', margin: '50px auto'}}>
                 <h2 className="text-center" style={{color: '#fff', marginBottom: '30px'}}>Tu Carrito de Compras</h2>
                 
-                {/* Estructura principal con el CSS Grid: Lista vs Resumen */}
                 <div className="cart-main-layout">
                     
-                    {/* Columna 1: Lista de Productos */}
+                    {/* Lista de Productos */}
                     <div>
                         <div className="cart-header-grid">
                             <div className="cart-header-item">Producto</div>
@@ -126,7 +123,7 @@ const Carrito = ({ onBack, cartItems, setCartItems }) => {
                         ))}
                     </div>
                     
-                    {/* Columna 2: Resumen de Compra */}
+                    {/* Resumen de Compra */}
                     <div className="cart-summary-card">
                         <h3 className="cart-summary-title">Resumen del Pedido</h3>
                         

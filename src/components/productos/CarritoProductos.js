@@ -20,7 +20,6 @@ const CarritoProductos = ({ product, addToCart }) => {
             <div className="product-footer">
                 <p className="product-price">${product.price.toFixed(2)}</p>
                 
-                {/* 💡 CORRECCIÓN CLAVE: Usamos 'primary-button' y añadimos el ícono */}
                 <button 
                     className="primary-button add-to-cart-btn" 
                     onClick={() => addToCart(product)}

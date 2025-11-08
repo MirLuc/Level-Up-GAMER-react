@@ -11,21 +11,20 @@ const getActiveUser = () => {
 };
 
 const GestionDePerfiles = ({ onBack }) => {
-    const [user, setUser] = useState(null); // Estado para el usuario cargado
+    const [user, setUser] = useState(null); 
     const [name, setName] = useState('');
     const [birthDate, setBirthDate] = useState('');
-    const [gender, setGender] = useState(''); // Nuevo campo
-    const [address, setAddress] = useState(''); // Nuevo campo
+    const [gender, setGender] = useState(''); 
+    const [address, setAddress] = useState(''); 
     const [loading, setLoading] = useState(true);
     const [errors, setErrors] = useState({});
 
-    // 1. EFECTO: Cargar datos del usuario activo al iniciar
+    // Cargar datos del usuario activo al iniciar
     useEffect(() => {
         const loadedUser = getActiveUser();
         
         if (loadedUser) {
             setUser(loadedUser);
-            // Inicializar estados del formulario con datos del usuario
             setName(loadedUser.name || '');
             setBirthDate(loadedUser.birthDate || '');
             setGender(loadedUser.gender || 'No especificado');
@@ -34,7 +33,7 @@ const GestionDePerfiles = ({ onBack }) => {
         setLoading(false);
     }, []);
 
-    // 2. FUNCIÓN DE VALIDACIÓN (Básica)
+    //  FUNCIÓN DE VALIDACIÓN 
     const validate = () => {
         let tempErrors = {};
         let isValid = true;
@@ -43,13 +42,12 @@ const GestionDePerfiles = ({ onBack }) => {
             tempErrors.name = 'El nombre es obligatorio.';
             isValid = false;
         }
-        // Puedes añadir más validaciones aquí (ej: formato de fecha, etc.)
 
         setErrors(tempErrors);
         return isValid;
     };
 
-    // 3. FUNCIÓN DE GUARDAR PERFIL
+    // GUARDAR PERFIL
     const handleSave = (e) => {
         e.preventDefault();
 
@@ -60,10 +58,9 @@ const GestionDePerfiles = ({ onBack }) => {
                 birthDate: birthDate,
                 gender: gender,
                 address: address,
-                // NOTA: El email y la contraseña no se modifican aquí
             };
 
-            // a. Actualizar la lista completa de usuarios en localStorage
+            //Actualizar la lista completa de usuarios en localStorage
             const users = JSON.parse(localStorage.getItem('users') || '[]');
             const userIndex = users.findIndex(u => u.email === user.email);
 
@@ -71,7 +68,6 @@ const GestionDePerfiles = ({ onBack }) => {
                 users[userIndex] = updatedUser;
                 localStorage.setItem('users', JSON.stringify(users));
                 
-                // b. Actualizar el estado local para reflejar los cambios
                 setUser(updatedUser);
                 alert('¡Perfil actualizado con éxito!');
             } else {
@@ -109,7 +105,7 @@ const GestionDePerfiles = ({ onBack }) => {
             <div className="login-header"> 
                 <div className="login-logo">
                     <span role="img" aria-label="Game Controller"> 🎮 </span>
-                    LEVEL-UP-GAMER
+                    LEVEL-UP GAMER
                 </div>
                 {/* Botón Volver */}
                 <a onClick={onBack} className="primary-button nav-btn">
@@ -143,7 +139,7 @@ const GestionDePerfiles = ({ onBack }) => {
                     <h3 style={{color: '#fff', marginBottom: '20px'}}>Información Personal</h3>
                     <div className="form-group-row">
                         
-                        {/* Campo 1: Nombre */}
+                        {/* Campo Nombre */}
                         <div>
                             <label className="input-label">Nombre de Usuario</label>
                             <input 
@@ -155,7 +151,7 @@ const GestionDePerfiles = ({ onBack }) => {
                             {errors.name && <p className="error-text">{errors.name}</p>}
                         </div>
                         
-                        {/* Campo 2: Fecha Nacimiento */}
+                        {/* Campo Fecha Nacimiento */}
                         <div>
                             <label className="input-label">Fecha Nacimiento</label>
                             <input 
@@ -168,7 +164,7 @@ const GestionDePerfiles = ({ onBack }) => {
                     </div>
                     
                     <div className="form-group-row">
-                         {/* Campo 3: Género */}
+                         {/* Campo  Género */}
                         <div>
                             <label className="input-label">Género</label>
                             <select 
@@ -183,7 +179,7 @@ const GestionDePerfiles = ({ onBack }) => {
                             </select>
                         </div>
                         
-                        {/* Campo 4: Dirección */}
+                        {/* Campo Dirección */}
                         <div>
                             <label className="input-label">Dirección</label>
                             <input 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../../styles/Styles.css'; 
 
-// Función auxiliar para validar un email básico
+//  validar un email básico
 const validateEmail = (email) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(String(email).toLowerCase());
@@ -12,7 +12,7 @@ const LoginScreen = ({ onBack }) => {
     const [password, setPassword] = useState('');
     const [errors, setErrors] = useState({}); 
     
-    // Función de validación de formato
+    // validación de formato
     const validate = () => {
         let tempErrors = {};
         let isValid = true;
@@ -37,7 +37,7 @@ const LoginScreen = ({ onBack }) => {
     // Lógica principal de INICIO DE SESIÓN
     const handleSubmit = (e) => {
         e.preventDefault();
-        setErrors({}); // Limpia errores previos al inicio de la validación
+        setErrors({}); // Limpia errores 
         
         if (validate()) {
             // Carga la lista de usuarios desde localStorage
@@ -52,7 +52,7 @@ const LoginScreen = ({ onBack }) => {
                 // CLAVE PARA GESTIÓN DE PERFILES: Guardar el email del usuario activo
                 localStorage.setItem('activeUserEmail', user.email); 
                 
-                // ÉXITO: Iniciar Sesión y comprobar descuento
+                // comprobar descuento
                 if (user.email.toLowerCase().endsWith('@duocuc.cl')) {
                     alert(`¡Bienvenido ${user.name}! Tienes un 20% de descuento aplicado.`);
                 } else {
@@ -90,7 +90,7 @@ const LoginScreen = ({ onBack }) => {
 
                 <form onSubmit={handleSubmit}>
                     
-                    {/* Campo 1: Email */}
+                    {/* Campo Email */}
                     <div className="mb-4">
                         <label className="input-label">Email</label>
                         <input 
@@ -104,7 +104,7 @@ const LoginScreen = ({ onBack }) => {
                         {errors.email && <p className="error-text">{errors.email}</p>}
                     </div>
 
-                    {/* Campo 2: Contraseña */}
+                    {/* Campo Contraseña */}
                     <div className="mb-4">
                         <label className="input-label">Contraseña</label>
                         <input 

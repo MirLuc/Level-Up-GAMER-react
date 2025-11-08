@@ -2,7 +2,7 @@ import React from 'react';
 import CarritoProductos from './CarritoProductos'; 
 import '../../styles/Styles.css';
 
-// Ahora acepta la función `addToCart`
+// funcion para agregar carrito
 const ListaProductos = ({ products, addToCart }) => { 
     return (
         <div style={{ maxWidth: '1200px', margin: '40px auto', padding: '0 20px' }}>
@@ -18,7 +18,6 @@ const ListaProductos = ({ products, addToCart }) => {
                     <CarritoProductos 
                         key={product.id} 
                         product={product} 
-                        // CLAVE: Pasamos la función al componente hijo
                         addToCart={addToCart} 
                     />
                 ))}

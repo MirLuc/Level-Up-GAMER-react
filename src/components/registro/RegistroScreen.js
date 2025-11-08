@@ -7,7 +7,7 @@ const validateEmail = (email) => {
     return re.test(String(email).toLowerCase());
 };
 
-// Función para verificar si la persona tiene 18 años o más
+//verificar si la persona tiene 18 años
 const isOver18 = (dateString) => {
     if (!dateString) return false;
     const today = new Date();
@@ -36,13 +36,13 @@ const RegistroScreen = ({ onBack }) => {
         const duocDomain = '@duocuc.cl';
         const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
 
-        // --- A. Validación de Nombre ---
+        //  Validación de Nombre 
         if (!name.trim()) {
             tempErrors.name = 'El nombre de usuario es obligatorio.';
             isValid = false;
         }
 
-        // --- B. Validación de Email ---
+        //  Validación de Email 
         if (!email) {
             tempErrors.email = 'El email es obligatorio.';
             isValid = false;
@@ -54,7 +54,7 @@ const RegistroScreen = ({ onBack }) => {
             isValid = false;
         }
 
-        // --- C. Validación de Contraseña ---
+        // Validación de Contraseña 
         if (!password) {
             tempErrors.password = 'La contraseña es obligatoria.';
             isValid = false;
@@ -63,7 +63,7 @@ const RegistroScreen = ({ onBack }) => {
             isValid = false;
         }
 
-        // --- D. Validación de Fecha de Nacimiento (Mayor de 18) ---
+        //  Validación de fecha de de nacimiento +18
         if (!birthDate) {
             tempErrors.birthDate = 'La fecha de nacimiento es obligatoria.';
             isValid = false;
@@ -74,7 +74,7 @@ const RegistroScreen = ({ onBack }) => {
 
         setErrors(tempErrors); 
         
-        // --- E. Lógica de Descuento (Muestra el mensaje, no afecta el registro) ---
+        // Logica de descuento por ser parte de duoc
         if (email && email.toLowerCase().endsWith(duocDomain) && validateEmail(email)) {
             setDiscountMessage('¡Felicidades! Tienes un 20% de descuento por ser parte de DuocUC.');
         } else {

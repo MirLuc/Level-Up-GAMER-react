@@ -58,15 +58,14 @@ const ProductsScreen = () => {
         alert(`¡${productToAdd.name} añadido al carrito!`);
     };
     
-    // --- Datos de Productos de Ejemplo (RUTAS CORREGIDAS) ---
     const products = [
-        { id: 1, name: 'Consola Retro', price: 299.99, description: 'Una consola clásica con cientos de juegos.', image: '/imagenes/Consolas.jpg', category: 'Consolas' },
-        { id: 2, name: 'Silla Gamer RGB', price: 450.00, description: 'Máximo confort para largas sesiones de juego.', image: '/imagenes/Silla-Gamer.jpg', category: 'Accesorios' },
-        { id: 3, name: 'Teclado Mecánico', price: 120.50, description: 'Teclas rápidas y sensibles para eSports.', image: '/imagenes/Teclado.jpg', category: 'Accesorios' },
-        { id: 4, name: 'Mouse Inalámbrico', price: 55.99, description: 'Precisión y velocidad para el gamer competitivo.', image: '/imagenes/Mause.jpg', category: 'Accesorios' },
-        { id: 5, name: 'Monitor Curvo 4K', price: 799.00, description: 'Inmersión total con la mejor resolución.', image: '/imagenes/Monitor.jpg', category: 'Monitores' },
-        { id: 6, name: 'Juego Nuevo AAA', price: 69.99, description: 'El lanzamiento más esperado del año.', image: '/imagenes/Juegos.jpg', category: 'Juegos' },
-        { id: 7, name: 'Auriculares Noise Cancelling', price: 150.00, description: 'Aísla el ruido y céntrate en la partida.', image: '/imagenes/Audifonos.jpg', category: 'Accesorios' },
+        { id: 1, name: 'Consolas', price: 200.000, description: 'Una consola de juegos.', image: '/imagenes/Consolas.jpg', category: 'Consolas' },
+        { id: 2, name: 'Silla Gamer ', price: 450.000, description: 'Silla gamer .', image: '/imagenes/Silla-Gamer.jpg', category: 'Accesorios' },
+        { id: 3, name: 'Teclado Mecánico', price: 120.500, description: '', image: '/imagenes/Teclado.jpg', category: 'Accesorios' },
+        { id: 4, name: 'Mouse Inalámbrico', price: 55.999, description: 'Precisión y velocidad para el gamer competitivo.', image: '/imagenes/Mause.jpg', category: 'Accesorios' },
+        { id: 5, name: 'Monitor Curvo 4K', price: 799.000, description: 'Inmersión total con la mejor resoluc|ión.', image: '/imagenes/Monitor.jpg', category: 'Monitores' },
+        { id: 6, name: 'Juegos ', price: 69.999, description: 'El lanzamiento más esperado del año.', image: '/imagenes/Juegos.jpg', category: 'Juegos' },
+        { id: 7, name: 'Auriculares ', price: 150.000, description: 'Aísla el ruido y céntrate en la partida.', image: '/imagenes/Audifonos.jpg', category: 'Accesorios' },
     ];
     
     // LÓGICA DE FILTRADO Y BÚSQUEDA
