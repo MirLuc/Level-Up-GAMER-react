@@ -1,87 +1,115 @@
 import React, { useState, useEffect } from 'react';
+import { getProfile, updateProfile } from '../../services/authService'; // Importar funciones del API
+import { useNavigate } from 'react-router-dom'; 
 import '../../styles/Styles.css';
 
-// Función auxiliar para buscar y cargar el usuario
-const getActiveUser = () => {
-    const activeEmail = localStorage.getItem('activeUserEmail');
-    if (!activeEmail) return null;
 
-    const users = JSON.parse(localStorage.getItem('users') || '[]');
-    return users.find(u => u.email.toLowerCase() === activeEmail.toLowerCase());
+const GENDERS = ['Masculino', 'Femenino', 'Otro', 'No especificado'];
+
+// Función auxiliar para obtener el usuario activo
+const getActiveUser = () => {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
 };
 
 const GestionDePerfiles = ({ onBack }) => {
-    const [user, setUser] = useState(null); 
-    const [name, setName] = useState('');
-    const [birthDate, setBirthDate] = useState('');
-    const [gender, setGender] = useState(''); 
-    const [address, setAddress] = useState(''); 
+    const navigate = useNavigate();
+    const [profileData, setProfileData] = useState({
+        name: '',
+        email: '',
+        birthDate: '', 
+        gender: 'No especificado',
+        address: ''
+    });
     const [loading, setLoading] = useState(true);
-    const [errors, setErrors] = useState({});
+    const [message, setMessage] = useState(null);
+    const [error, setError] = useState(null);
 
-    // Cargar datos del usuario activo al iniciar
+    // Cargar datos del perfil al iniciar el componente
     useEffect(() => {
-        const loadedUser = getActiveUser();
+        const user = getActiveUser();
         
-        if (loadedUser) {
-            setUser(loadedUser);
-            setName(loadedUser.name || '');
-            setBirthDate(loadedUser.birthDate || '');
-            setGender(loadedUser.gender || 'No especificado');
-            setAddress(loadedUser.address || '');
-        }
-        setLoading(false);
-    }, []);
-
-    //  FUNCIÓN DE VALIDACIÓN 
-    const validate = () => {
-        let tempErrors = {};
-        let isValid = true;
-
-        if (!name.trim()) {
-            tempErrors.name = 'El nombre es obligatorio.';
-            isValid = false;
+        if (!user || !user.email) {
+            setLoading(false);
+            return;
         }
 
-        setErrors(tempErrors);
-        return isValid;
+        const fetchProfile = async () => {
+            try {
+                // LLAMADA AL BACKEND: GET /api/auth/profile/:email
+                const res = await getProfile(user.email); 
+                
+                setProfileData({
+                    name: res.user.name || '',
+                    email: res.user.email || '',
+                    birthDate: res.user.birthDate || '', // Formato YYYY-MM-DD
+                    gender: res.user.gender || 'No especificado',
+                    address: res.user.address || ''
+                });
+                setMessage('Perfil cargado.');
+            } catch (err) {
+                console.error("Error al cargar perfil:", err);
+                setError(err.message || 'Error al cargar el perfil.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProfile();
+    }, [navigate]);
+
+    // Maneja los cambios en los campos del formulario
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setProfileData(prevData => ({ ...prevData, [name]: value }));
     };
 
-    // GUARDAR PERFIL
-    const handleSave = (e) => {
+    // GUARDAR PERFIL (Llama a la API)
+    const handleSave = async (e) => {
         e.preventDefault();
+        setError(null);
+        setMessage(null);
 
-        if (validate() && user) {
-            const updatedUser = {
-                ...user,
-                name: name.trim(),
-                birthDate: birthDate,
-                gender: gender,
-                address: address,
-            };
+        if (!profileData.email) {
+            setError('Error: El email no está disponible para actualizar.');
+            return;
+        }
 
-            //Actualizar la lista completa de usuarios en localStorage
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
-            const userIndex = users.findIndex(u => u.email === user.email);
-
-            if (userIndex !== -1) {
-                users[userIndex] = updatedUser;
-                localStorage.setItem('users', JSON.stringify(users));
-                
-                setUser(updatedUser);
-                alert('¡Perfil actualizado con éxito!');
-            } else {
-                alert('Error: No se encontró el usuario para actualizar.');
+        // Datos a enviar (el backend espera name, birthDate, gender, address)
+        const dataToUpdate = {
+            name: profileData.name.trim(),
+            birthDate: profileData.birthDate,
+            gender: profileData.gender,
+            address: profileData.address,
+        };
+        
+        try {
+            // LLAMADA AL BACKEND: PATCH /api/auth/profile/:email
+            const response = await updateProfile(profileData.email, dataToUpdate); 
+            
+            setMessage(response.message || 'Perfil actualizado con éxito.');
+            
+            // Si el backend es exitoso, actualizamos el localStorage con el nuevo nombre
+            const currentUser = getActiveUser();
+            if (currentUser) {
+                localStorage.setItem('user', JSON.stringify({
+                    ...currentUser,
+                    name: response.user.name 
+                }));
             }
+            
+            setProfileData(response.user); // Actualizar estado con datos del servidor
+            
+
+        } catch (err) {
+            const errorMessage = err.message || err.response?.data?.message || 'Error desconocido al actualizar.';
+            setError(errorMessage);
+            console.error('Error en la actualización:', err);
         }
     };
     
-    if (loading) {
-        return <div className="app-body"><p className="text-center" style={{color: '#00c6ff', fontSize: '1.5rem', marginTop: '100px'}}>Cargando perfil...</p></div>;
-    }
-
-    // Si no hay usuario activo, redirigir o mostrar mensaje
-    if (!user) {
+    // REDIRECCIÓN si no hay usuario logueado o error de carga
+    if (!getActiveUser() && !loading) {
         return (
             <div className="perfiles-body">
                 <div className="login-header">
@@ -96,6 +124,10 @@ const GestionDePerfiles = ({ onBack }) => {
                 </div>
             </div>
         );
+    }
+
+    if (loading) {
+         return <div className="app-body"><p className="text-center" style={{color: '#00c6ff', fontSize: '1.5rem', marginTop: '100px'}}>Cargando perfil...</p></div>;
     }
 
 
@@ -116,17 +148,21 @@ const GestionDePerfiles = ({ onBack }) => {
             {/* Tarjeta de Gestión */}
             <div className="main-card" style={{maxWidth: '800px', margin: '50px auto'}}>
                 <h2 className="text-center" style={{color: '#00c6ff', marginBottom: '30px'}}>
-                    Hola, {user.name || 'Usuario'} | Perfil
+                    Hola, {profileData.name || 'Usuario'} | Perfil
                 </h2>
                 
                 <form onSubmit={handleSave}>
+                    {/* Mensajes */}
+                    {message && <div className="alert alert-success">{message}</div>}
+                    {error && <div className="alert alert-danger">{error}</div>}
+
                     {/* Información de la Cuenta (No Editable aquí) */}
                     <div style={{marginBottom: '30px', borderBottom: '1px solid #333', paddingBottom: '20px'}}>
                         <h3 style={{color: '#fff', marginBottom: '15px'}}>Datos de Acceso</h3>
                         <div className="form-group-row">
                              <div>
                                 <label className="input-label">Email de Cuenta</label>
-                                <input type="email" className="dark-input" value={user.email} disabled />
+                                <input type="email" className="dark-input" value={profileData.email} disabled />
                             </div>
                              <div>
                                 <label className="input-label">Contraseña</label>
@@ -144,11 +180,12 @@ const GestionDePerfiles = ({ onBack }) => {
                             <label className="input-label">Nombre de Usuario</label>
                             <input 
                                 type="text" 
-                                className={`dark-input ${errors.name ? 'input-error' : ''}`}
-                                value={name} 
-                                onChange={(e) => setName(e.target.value)}
+                                className={`dark-input ${error && error.includes('nombre') ? 'input-error' : ''}`}
+                                name="name"
+                                value={profileData.name} 
+                                onChange={handleInputChange}
                             />
-                            {errors.name && <p className="error-text">{errors.name}</p>}
+                            {error && error.includes('nombre') && <p className="error-text">{error}</p>}
                         </div>
                         
                         {/* Campo Fecha Nacimiento */}
@@ -157,9 +194,11 @@ const GestionDePerfiles = ({ onBack }) => {
                             <input 
                                 type="date" 
                                 className="dark-input" 
-                                value={birthDate} 
-                                onChange={(e) => setBirthDate(e.target.value)}
+                                name="birthDate"
+                                value={profileData.birthDate} 
+                                onChange={handleInputChange}
                             />
+                            {error && error.includes('años') && <p className="error-text">{error}</p>}
                         </div>
                     </div>
                     
@@ -169,13 +208,11 @@ const GestionDePerfiles = ({ onBack }) => {
                             <label className="input-label">Género</label>
                             <select 
                                 className="dark-input"
-                                value={gender}
-                                onChange={(e) => setGender(e.target.value)}
+                                name="gender"
+                                value={profileData.gender}
+                                onChange={handleInputChange}
                             >
-                                <option value="No especificado">No especificado</option>
-                                <option value="Masculino">Masculino</option>
-                                <option value="Femenino">Femenino</option>
-                                <option value="Otro">Otro</option>
+                                {GENDERS.map(g => <option key={g} value={g}>{g}</option>)}
                             </select>
                         </div>
                         
@@ -185,8 +222,9 @@ const GestionDePerfiles = ({ onBack }) => {
                             <input 
                                 type="text" 
                                 className="dark-input" 
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
+                                name="address"
+                                value={profileData.address || ''}
+                                onChange={handleInputChange}
                                 placeholder="Ingresa tu dirección completa" 
                             />
                         </div>

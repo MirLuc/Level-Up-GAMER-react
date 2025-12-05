@@ -3,18 +3,14 @@
 import axios from 'axios';
 import BASE_URL from '../config/api';
 
-const AUTH_URL = `${BASE_URL}/auth`; // URL: http://localhost:3000/api/auth
+const AUTH_URL = `${BASE_URL}/auth`; 
 
 // Función de Registro
 export const registerUser = async (userData) => {
     try {
-        // Petición POST a http://localhost:3000/api/auth/register
         const response = await axios.post(`${AUTH_URL}/register`, userData);
-        
-        // El backend debe devolver el usuario registrado o un token
         return response.data; 
     } catch (error) {
-        // Manejo de errores (ej. email ya existe, validación fallida)
         throw error.response ? error.response.data : new Error('Error de red o servidor');
     }
 };
@@ -22,16 +18,36 @@ export const registerUser = async (userData) => {
 // Función de Login
 export const loginUser = async (credentials) => {
     try {
-        // Petición POST a http://localhost:3000/api/auth/login
         const response = await axios.post(`${AUTH_URL}/login`, credentials);
         
-        // Guarda el token (si el backend lo devuelve) en el almacenamiento local
-        if (response.data.token) {
-            localStorage.setItem('userToken', response.data.token);
+        // El login en el backend devuelve el objeto 'user' (con id, name, email)
+        if (response.data.user) {
+            localStorage.setItem('user', JSON.stringify(response.data.user)); 
         }
         return response.data;
     } catch (error) {
-        throw error.response ? error.response.data : new Error('Error de red o servidor');
+        throw error.response ? error.response.data : new Error('Email o contraseña incorrectos. Intenta de nuevo.');
     }
 };
 
+// NUEVO: Función para obtener el perfil del backend (GET)
+export const getProfile = async (email) => {
+    try {
+        // Llama a GET /api/auth/profile/:email
+        const response = await axios.get(`${AUTH_URL}/profile/${email}`);
+        return response.data; 
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('Error al conectar con el servidor.');
+    }
+};
+
+// NUEVO: Función para actualizar el perfil del backend (PATCH)
+export const updateProfile = async (email, data) => {
+    try {
+        // Llama a PATCH /api/auth/profile/:email
+        const response = await axios.patch(`${AUTH_URL}/profile/${email}`, data);
+        return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error('Error al conectar con el servidor.');
+    }
+};
