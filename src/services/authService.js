@@ -30,7 +30,7 @@ export const loginUser = async (credentials) => {
     }
 };
 
-// NUEVO: Función para obtener el perfil del backend (GET)
+//Función para obtener el perfil del backend (GET)
 export const getProfile = async (email) => {
     try {
         // Llama a GET /api/auth/profile/:email
@@ -41,7 +41,7 @@ export const getProfile = async (email) => {
     }
 };
 
-// NUEVO: Función para actualizar el perfil del backend (PATCH)
+// unción para actualizar el perfil del backend (PATCH)
 export const updateProfile = async (email, data) => {
     try {
         // Llama a PATCH /api/auth/profile/:email
