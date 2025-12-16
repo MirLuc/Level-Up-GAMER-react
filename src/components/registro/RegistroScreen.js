@@ -1,5 +1,8 @@
+// src/components/registro/RegistroScreen.js
+
 import React, { useState } from 'react';
 import '../../styles/Styles.css';
+import BASE_URL from '../../config/api'; // Asegúrate de que esta ruta sea correcta
 
 // Función auxiliar para validar un email básico
 const validateEmail = (email) => {
@@ -7,7 +10,7 @@ const validateEmail = (email) => {
     return re.test(String(email).toLowerCase());
 };
 
-//verificar si la persona tiene 18 años
+// verificar si la persona tiene 18 años
 const isOver18 = (dateString) => {
     if (!dateString) return false;
     const today = new Date();
@@ -29,30 +32,28 @@ const RegistroScreen = ({ onBack }) => {
     const [errors, setErrors] = useState({});
     const [discountMessage, setDiscountMessage] = useState('');
 
-    // FUNCIÓN DE VALIDACIÓN COMPLETA
+    // FUNCIÓN DE VALIDACIÓN EN EL CLIENTE
     const validate = () => {
         let tempErrors = {};
         let isValid = true;
         const duocDomain = '@duocuc.cl';
-        const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
 
-        //  Validación de Nombre 
+        //  Validación de Nombre 
         if (!name.trim()) {
             tempErrors.name = 'El nombre de usuario es obligatorio.';
             isValid = false;
         }
 
-        //  Validación de Email 
+        //  Validación de Email 
         if (!email) {
             tempErrors.email = 'El email es obligatorio.';
             isValid = false;
         } else if (!validateEmail(email)) {
             tempErrors.email = 'Formato de email incorrecto.';
             isValid = false;
-        } else if (existingUsers.some(user => user.email.toLowerCase() === email.toLowerCase())) {
-            tempErrors.email = 'Este email ya está registrado.';
-            isValid = false;
         }
+        // NOTA: Se eliminó la verificación de email duplicado con localStorage. 
+        // Esta validación la maneja ahora el backend con la BD (Paso 3, código 409).
 
         // Validación de Contraseña 
         if (!password) {
@@ -63,7 +64,7 @@ const RegistroScreen = ({ onBack }) => {
             isValid = false;
         }
 
-        //  Validación de fecha de de nacimiento +18
+        //  Validación de fecha de de nacimiento +18
         if (!birthDate) {
             tempErrors.birthDate = 'La fecha de nacimiento es obligatoria.';
             isValid = false;
@@ -84,8 +85,8 @@ const RegistroScreen = ({ onBack }) => {
         return isValid; 
     };
 
-    // Lógica principal de REGISTRO y ALMACENAMIENTO
-    const handleSubmit = (e) => {
+    // Lógica principal de REGISTRO (AHORA CONECTADA AL BACKEND)
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
         if (validate()) {
@@ -96,15 +97,36 @@ const RegistroScreen = ({ onBack }) => {
                 birthDate: birthDate,
             };
             
-            // Almacenamiento en localStorage
-            const users = JSON.parse(localStorage.getItem('users') || '[]');
-            users.push(newUser);
-            localStorage.setItem('users', JSON.stringify(users));
-            
-            alert('¡Registro Exitoso! Ya puedes iniciar sesión con tu email y contraseña.');
-            onBack(); 
+            try {
+                const response = await fetch(`${BASE_URL}/auth/register`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newUser), 
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // CÓDIGO 201: Registro exitoso
+                    alert(data.message + ' Ya puedes iniciar sesión.');
+                    onBack(); 
+                } else if (response.status === 400 || response.status === 409) {
+                    // CÓDIGOS 400/409: Errores de validación o conflicto (ej: email duplicado, menor de 18)
+                    alert('Error en el registro: ' + data.message);
+                    console.error('Error en el backend:', data.message);
+                } else {
+                    // CÓDIGO 500 o no manejado
+                    alert('Error: ' + (data.message || 'Error desconocido al intentar el registro.'));
+                }
+                
+            } catch (error) {
+                console.error('Error de red al registrar:', error);
+                alert('Error de red o conexión fallida con el servidor. Asegúrate de que el backend esté corriendo en http://localhost:5000');
+            }
         } else {
-            console.log('Error de Validación en Registro');
+            console.log('Error de Validación en el Cliente');
         }
     };
 
