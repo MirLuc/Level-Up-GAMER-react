@@ -135,10 +135,13 @@ const GestionDePerfiles = ({ onBack }) => {
         <div className="perfiles-body">
             {/* Header */}
             <div className="login-header"> 
-                <div className="login-logo">
-                    <span role="img" aria-label="Game Controller"> 🎮 </span>
-                    LEVEL-UP GAMER
-                </div>
+                            <div className="login-logo">
+                                <img
+                                    src="imagenes/leveluplogo.png"
+                                    alt="Level-Up Gamer"
+                                    className="logo-img"
+                                />
+                            </div>
                 {/* Botón Volver */}
                 <a onClick={onBack} className="primary-button nav-btn">
                     ← Volver

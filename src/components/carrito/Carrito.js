@@ -41,12 +41,15 @@ const Carrito = ({ onBack, cartItems, setCartItems }) => {
         return (
             <div className="carrito-body">
                 <div className="login-header">
-                    <div className="login-logo">
-                        <span role="img" aria-label="Game Controller"> 🎮 </span>
-                        LEVEL-UP-GAMER
-                    </div>
+                            <div className="login-logo">
+                                <img
+                                    src="imagenes/leveluplogo.png"
+                                    alt="Level-Up Gamer"
+                                    className="logo-img"
+                                />
+                            </div>
                     <a onClick={onBack} className="primary-button nav-btn">
-                        ← Volver a Productos
+                        ← Volver
                     </a>
                 </div>
                 <div className="main-card" style={{maxWidth: '600px', margin: '50px auto'}}>
@@ -68,10 +71,13 @@ const Carrito = ({ onBack, cartItems, setCartItems }) => {
         <div className="carrito-body">
             {/* Header */}
             <div className="login-header">
-                <div className="login-logo">
-                    <span role="img" aria-label="Game Controller"> 🎮 </span>
-                    LEVEL-UP-GAMER
-                </div>
+                            <div className="login-logo">
+                                <img
+                                    src="imagenes/leveluplogo.png"
+                                    alt="Level-Up Gamer"
+                                    className="logo-img"
+                                />
+                            </div>
                 <a onClick={onBack} className="primary-button nav-btn">
                     ← Volver a Productos
                 </a>

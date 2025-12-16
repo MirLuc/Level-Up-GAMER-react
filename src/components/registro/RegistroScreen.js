@@ -112,10 +112,13 @@ const RegistroScreen = ({ onBack }) => {
         <div className="registro-body">
             {/* Header */}
             <div className="registro-header">
-                <div className="registro-logo">
-                    <span role="img" aria-label="Game Controller"> 🎮 </span>
-                    LEVEL_UP_GAMER
-                </div>
+                            <div className="registro-logo">
+                                <img
+                                    src="imagenes/leveluplogo.png"
+                                    alt="Level-Up Gamer"
+                                    className="logo-img"
+                                />
+                            </div>
                 <a onClick={onBack} className="primary-button nav-btn">
                     ← Volver
                 </a>

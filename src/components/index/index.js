@@ -104,8 +104,11 @@ const ProductsScreen = () => {
                         {/* HEADER PRINCIPAL */}
                         <div className="app-header">
                             <div className="app-logo">
-                                <span role="img" aria-label="Game Controller"> 🎮 </span>
-                                LEVEL-UP GAMER
+                                <img
+                                    src="imagenes/leveluplogo.png"
+                                    alt="Level-Up Gamer"
+                                    className="logo-img"
+                                />
                             </div>
                             
                             {/* BOTONES DE NAVEGACIÓN (RENDERIZADO CONDICIONAL) */}
@@ -186,4 +189,4 @@ const ProductsScreen = () => {
     return <div className="app-body">{renderScreen()}</div>;
 };
 
-export default ProductsScreen;
+export default ProductsScreen;  

@@ -72,10 +72,13 @@ const LoginScreen = ({ onBack }) => {
         <div className="login-body">
             {/* Header */}
             <div className="login-header">
-                <div className="login-logo">
-                    <span role="img" aria-label="Game Controller"> 🎮 </span>
-                    LEVEL-UP-GAMER
-                </div>
+                            <div className="app-logo">
+                                <img
+                                    src="imagenes/leveluplogo.png"
+                                    alt="Level-Up Gamer"
+                                    className="logo-img"
+                                />
+                            </div>
                 <a onClick={onBack} className="primary-button nav-btn">
                     ← Volver
                 </a>

@@ -1,5 +1,8 @@
 /*Estilos Base y Cuerpo */
 .app-body {
+    background-image: url('../../public/imagenes/bga.gif');
+    background-color: black;
+    min-height: 100vh;
     background-color: #000;
     min-height: 100vh;
     color: #fff;
@@ -8,7 +11,6 @@
 }
 /* Estilos para Login, Registro, Perfiles*/
 .login-body, .registro-body, .perfiles-body {
-    background-color: #000;
     min-height: 100vh;
     color: #fff;
     font-family: Arial, sans-serif;
@@ -144,11 +146,11 @@
     box-shadow: 0 6px 12px rgba(0, 198, 255, 0.3);
 }
 
-/* 💡 AJUSTE  IMAGENES */
+/* AJUSTE  IMAGENES */
 .product-image-container {
     text-align: center;
     margin-bottom: 10px;
-    height: 150px; /* **Altura Fija:** Limita el espacio de la imagen */
+    height: 150px; 
     display: flex;
     justify-content: center;
     align-items: center;
@@ -157,7 +159,7 @@
 .product-image-style {
     max-height: 100%; 
     max-width: 100%;  
-    object-fit: contain; /* **CLAVE:** Escala la imagen para que quepa sin cortarse (muestra la imagen completa) */
+    object-fit: contain; /* Escala la imagen para que quepa sin cortarse */
     border-radius: 5px;
     transition: transform 0.3s ease-in-out;
 }
@@ -232,7 +234,6 @@
 /* 6. Estilos de Carrito  */
 .carrito-body {
     min-height: 100vh;
-    background-color: #000;
 }
 /* Contenedor principal del carrito */
 .cart-main-layout {
@@ -360,4 +361,10 @@
     border-radius: 5px;
     text-align: center;
     border: 2px solid #fff;
+}
+
+.logo-img {
+  height: 100px;
+  width: auto;
+  display: block;
 }
