@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../../styles/Styles.css'; 
+import { loginUser } from '../../services/authService';
 
 //  validar un email básico
 const validateEmail = (email) => {
@@ -34,36 +35,31 @@ const LoginScreen = ({ onBack }) => {
         return isValid; 
     };
 
-    // Lógica principal de INICIO DE SESIÓN
-    const handleSubmit = (e) => {
+    // Lógica principal de INICIO DE SESIÓN (CONECTADA AL BACKEND)
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        setErrors({}); // Limpia errores 
+        setErrors({}); 
         
         if (validate()) {
-            // Carga la lista de usuarios desde localStorage
-            const existingUsers = JSON.parse(localStorage.getItem('users') || '[]');
-            
-            // Busca al usuario por email y contraseña
-            const user = existingUsers.find(
-                u => u.email.toLowerCase() === email.toLowerCase() && u.password === password
-            );
-            
-            if (user) {
-                // CLAVE PARA GESTIÓN DE PERFILES: Guardar el email del usuario activo
-                localStorage.setItem('activeUserEmail', user.email); 
-                
-                // comprobar descuento
-                if (user.email.toLowerCase().endsWith('@duocuc.cl')) {
-                    alert(`¡Bienvenido ${user.name}! Tienes un 20% de descuento aplicado.`);
+            try {
+                const data = await loginUser({
+                    email: email.toLowerCase(),
+                    password: password,
+                });
+
+                // El backend ya nos manda el mensaje con o sin descuento
+                if (data.message) {
+                    alert(data.message);
                 } else {
-                    alert(`¡Bienvenido ${user.name}!`);
+                    alert('Inicio de sesión exitoso.');
                 }
 
-                // Redirige al Home/Productos
-                onBack(); 
-            } else {
-                // FALLO: Credenciales incorrectas
-                setErrors({ general: 'Email o contraseña incorrectos. Intenta de nuevo.' });
+                // `loginUser` ya guarda user y activeUserEmail en localStorage
+                onBack(); // Redirige al Home/Productos
+            } catch (error) {
+                // error puede ser { message: '...' } o un Error
+                const message = error.message || error?.message || 'Email o contraseña incorrectos. Intenta de nuevo.';
+                setErrors({ general: message });
             }
         }
     };
@@ -72,13 +68,13 @@ const LoginScreen = ({ onBack }) => {
         <div className="login-body">
             {/* Header */}
             <div className="login-header">
-                            <div className="app-logo">
-                                <img
-                                    src="imagenes/leveluplogo.png"
-                                    alt="Level-Up Gamer"
-                                    className="logo-img"
-                                />
-                            </div>
+                <div className="app-logo">
+                    <img
+                        src="imagenes/leveluplogo.png"
+                        alt="Level-Up Gamer"
+                        className="logo-img"
+                    />
+                </div>
                 <a onClick={onBack} className="primary-button nav-btn">
                     ← Volver
                 </a>

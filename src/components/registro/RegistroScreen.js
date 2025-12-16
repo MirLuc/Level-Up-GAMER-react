@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import '../../styles/Styles.css';
-import BASE_URL from '../../config/api'; // Asegúrate de que esta ruta sea correcta
+import BASE_URL from '../../config/api'; // Debe apuntar a http://localhost:3001/api
 
 // Función auxiliar para validar un email básico
 const validateEmail = (email) => {
@@ -85,7 +85,7 @@ const RegistroScreen = ({ onBack }) => {
         return isValid; 
     };
 
-    // Lógica principal de REGISTRO (AHORA CONECTADA AL BACKEND)
+    // Lógica principal de REGISTRO (CONECTADA AL BACKEND)
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -123,7 +123,7 @@ const RegistroScreen = ({ onBack }) => {
                 
             } catch (error) {
                 console.error('Error de red al registrar:', error);
-                alert('Error de red o conexión fallida con el servidor. Asegúrate de que el backend esté corriendo en http://localhost:5000');
+                alert('Error de red o conexión fallida con el servidor. Asegúrate de que el backend esté corriendo en http://localhost:3001');
             }
         } else {
             console.log('Error de Validación en el Cliente');
@@ -134,13 +134,13 @@ const RegistroScreen = ({ onBack }) => {
         <div className="registro-body">
             {/* Header */}
             <div className="registro-header">
-                            <div className="registro-logo">
-                                <img
-                                    src="imagenes/leveluplogo.png"
-                                    alt="Level-Up Gamer"
-                                    className="logo-img"
-                                />
-                            </div>
+                <div className="registro-logo">
+                    <img
+                        src="imagenes/leveluplogo.png"
+                        alt="Level-Up Gamer"
+                        className="logo-img"
+                    />
+                </div>
                 <a onClick={onBack} className="primary-button nav-btn">
                     ← Volver
                 </a>
@@ -177,18 +177,17 @@ const RegistroScreen = ({ onBack }) => {
                         <label className="input-label">Email</label>
                         <input 
                             type="email" 
-                            className={`dark-input ${errors.email ? 'input-error' : ''}`} 
+                            className={`dark-input ${errors.email ? 'input-error' : ''}`}
                             placeholder="tucorreo@ejemplo.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                            onBlur={validate} // Lanza validación al salir del campo
                         />
                         {errors.email && <p className="error-text">{errors.email}</p>}
                     </div>
-                    
-                    {/* Campo 3: Fecha Nacimiento */}
+
+                    {/* Campo 3: Fecha de Nacimiento */}
                     <div className="mb-4">
-                        <label className="input-label">Fecha Nacimiento</label>
+                        <label className="input-label">Fecha de Nacimiento</label>
                         <input 
                             type="date" 
                             className={`dark-input ${errors.birthDate ? 'input-error' : ''}`}
@@ -197,7 +196,6 @@ const RegistroScreen = ({ onBack }) => {
                         />
                         {errors.birthDate && <p className="error-text">{errors.birthDate}</p>}
                     </div>
-
 
                     {/* Campo 4: Contraseña */}
                     <div className="mb-4">
